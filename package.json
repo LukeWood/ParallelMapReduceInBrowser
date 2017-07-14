@@ -1,0 +1,23 @@
+{
+  "name": "parralelmapreduceinbrowser",
+  "version": "1.0.0",
+  "description": "Lets you run parllelize javascript on multiple cores within your browser using the mapreduce paradigm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LukeWoodSMU/ParallelMapReduceInBrowser.git"
+  },
+  "author": "Luke Wood",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LukeWoodSMU/ParallelMapReduceInBrowser/issues"
+  },
+  "homepage": "https://github.com/LukeWoodSMU/ParallelMapReduceInBrowser#readme",
+  "dependencies": {
+    "google-closure-compiler": "^20170521.0.0",
+    "gulp": "^3.9.1"
+  }
+}
