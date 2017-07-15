@@ -47,8 +47,7 @@ function mapreduce(data) {
       `onmessage = function(event){
         let fn = ${fn.toString()};
         if(event.data.length < 2) {
-          self.postMessage(event.data.length ? event.data[0] : null);
-          return;
+          return event.data.length == 1 ? event.data[0] : null;
         }
         let result = fn(event.data[0], event.data[1]);
         for(let i = 2; i < event.data.length; i++) {
@@ -57,12 +56,13 @@ function mapreduce(data) {
         self.postMessage(result);
       }`
     ]));
+    
     return new Promise((resolve, reject) => {
         let results = [];
         let completed = 0;
         function task_complete(event) {
           results.push(event.data);
-          console.log("COMPLETE", completed, cores);
+          console.log("COMPLETE")
           if(++completed === cores) {
             if(results.length == 1){
               return results[0];

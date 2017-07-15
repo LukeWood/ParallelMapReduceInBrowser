@@ -16,12 +16,6 @@ gulp.task('dist', () => {
   .pipe(gulp.dest('./test/dist'));
 });
 
-gulp.task('develop', () => {
-  gulp.watch(["./src/*"], () => {
-
-  })
-});
-
 gulp.task('lint', () => {
   return gulp.src(['**/*.js','!node_modules/**'])
   .pipe(eslint({
@@ -35,11 +29,15 @@ gulp.task('lint', () => {
   .pipe(eslint.failAfterError());
 });
 
-gulp.task('sample', () => {
+gulp.task('test', () => {
   gulp.src('test')
-  .pipe(webserver(
-    {open:true}
-  ));
+  .pipe(webserver({
+    open:true,
+    livereload:true
+  }));
 });
 
-gulp.task('test', gulpSequence('dist','sample'));
+gulp.task('develop', () => {
+  return gulp.watch('src/*',
+  ['lint', 'dist', 'test'])
+});
