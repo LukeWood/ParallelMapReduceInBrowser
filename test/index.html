@@ -1,0 +1,9 @@
+<script src="/dist/mapreduce.min.js"></script>
+<script>
+var data = new mapreduce([1,2,3,4,5,6,7,8,9,10,11,12,13]);
+data.map(x => x * x).then(data => {
+var result = (data.toArray()).toString();
+document.body.innerHTML = result;
+console.log(result);
+});
+</script>

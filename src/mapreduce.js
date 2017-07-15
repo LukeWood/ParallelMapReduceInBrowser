@@ -6,6 +6,7 @@ goog.require("LoadAssigner");
  */
 function mapreducer(data) {
   const cores = navigator.hardwareConcurrency;
+  const workloads = assignWorkloads(data,cores);
 
   function startWorker(data, blobURL) {
     const worker = new Worker(blobURL);
@@ -14,7 +15,6 @@ function mapreducer(data) {
   }
 
   function map(fn) {
-    let workloads = assignWorkloads(data,cores);
     let results = [];
     let blobURL = window.URL.createObjectURL(new Blob([
       `onmessage = function(event){
@@ -44,7 +44,17 @@ function mapreducer(data) {
   }
 
   function reduce() {
-
+    var result = null;
+    let blobURL = window.URL.createObjectURL(new Blob([
+      `onmessage = function(event){
+        let result = [];
+        var fn = ${fn.toString()};
+        for(let i = 0; i < event.data.length; i++) {
+          result.push(fn(event.data[i]));
+        }
+        self.postMessage(result);
+      }`
+    ]));
   }
 
   function toArray(){

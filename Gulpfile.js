@@ -17,7 +17,7 @@ gulp.task('dist', () => {
 });
 
 gulp.task('develop', () => {
-  gulp.watch(["./src/*", "./development/*"], () => {
+  gulp.watch(["./src/*"], () => {
 
   })
 });
