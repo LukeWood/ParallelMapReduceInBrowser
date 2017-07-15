@@ -23,7 +23,10 @@
   "devDependencies": {
     "google-closure-compiler-js": "^20170626.0.0",
     "gulp-eslint": "^4.0.0",
+    "gulp-sequence": "^0.4.6",
     "gulp-tap": "^1.0.1",
-    "gulp-watch-dir": "^0.1.0"
+    "gulp-watch-dir": "^0.1.0",
+    "gulp-webserver": "^0.9.1",
+    "webserver": "^3.1.10"
   }
 }

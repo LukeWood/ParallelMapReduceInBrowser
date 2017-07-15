@@ -1,5 +1,9 @@
-const LoadAssigner = require("./LoadAssigner.js");
+goog.require("LoadAssigner");
 
+/**
+ * This class handles workloads in parralel on multiple cores
+ * @constructor
+ */
 function mapreducer(data) {
   const cores = navigator.hardwareConcurrency;
 
@@ -10,7 +14,7 @@ function mapreducer(data) {
   }
 
   function map(fn) {
-    let workloads = LoadAssigner.assignWorkloads(data,cores);
+    let workloads = assignWorkloads(data,cores);
     let results = [];
     let blobURL = window.URL.createObjectURL(new Blob([
       `onmessage = function(event){
@@ -20,8 +24,7 @@ function mapreducer(data) {
           result.push(fn(event.data[i]));
         }
         self.postMessage(result);
-      }
-        `;
+      }`
     ]));
    return new Promise((resolve, reject) => {
        let completed = 0;
@@ -31,7 +34,6 @@ function mapreducer(data) {
            resolve(new mapreducer(results));
          }
        }
-
        for(let i = 0; i < cores; i++) {
          let worker = startWorker(workloads[i], blobURL);
          worker.addEventListener('message', task_complete);
@@ -45,6 +47,11 @@ function mapreducer(data) {
 
   }
 
+  function toArray(){
+    return data;
+  }
+
   this.map = map;
   this.reduce = reduce;
+  this.toArray = toArray;
 }
