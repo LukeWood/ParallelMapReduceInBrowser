@@ -62,7 +62,6 @@ function mapreduce(data) {
         let completed = 0;
         function task_complete(event) {
           results.push(event.data);
-          console.log("COMPLETE", completed, cores);
           if(++completed === cores) {
             if(results.length == 1){
               return results[0];
