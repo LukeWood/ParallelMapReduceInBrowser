@@ -19,5 +19,11 @@
   "dependencies": {
     "google-closure-compiler": "^20170521.0.0",
     "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "google-closure-compiler-js": "^20170626.0.0",
+    "gulp-eslint": "^4.0.0",
+    "gulp-tap": "^1.0.1",
+    "gulp-watch-dir": "^0.1.0"
   }
 }
