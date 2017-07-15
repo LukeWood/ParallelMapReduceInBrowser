@@ -8,7 +8,17 @@ const closure_compiler = compiler({
   warningLevel: 'VERBOSE',
   jsOutputFile: 'mapreduce.min.js'
 });
-
+const closure_not_so_compiler = compiler({
+  compilationLevel: 'WHITESPACE_ONLY',
+  warningLevel: 'VERBOSE',
+  jsOutputFile: 'mapreduce.js'
+})
+gulp.task('dev-dist', () => {
+  return gulp.src('./src/*', {base: './'})
+  .pipe(closure_not_so_compiler)
+  .pipe(gulp.dest('./dist'))
+  .pipe(gulp.dest('./test/dist'));
+})
 gulp.task('dist', () => {
   return gulp.src('./src/*.js', {base: './'})
   .pipe(closure_compiler)
@@ -19,7 +29,9 @@ gulp.task('dist', () => {
 gulp.task('lint', () => {
   return gulp.src(['**/*.js','!node_modules/**'])
   .pipe(eslint({
-    globals: [],
+    globals: [
+      'navigator'
+    ],
     envs: [
       'browsers'
     ],
@@ -39,5 +51,7 @@ gulp.task('test', () => {
 
 gulp.task('develop', () => {
   return gulp.watch('src/*',
-  ['lint', 'dist', 'test'])
+  ['lint', 'build', 'test'])
 });
+
+gulp.task('build', gulpSequence('lint', ['dev-dist','dist']));
