@@ -3,6 +3,7 @@ goog.require("LoadAssigner");
 /**
  * This class handles workloads in parralel on multiple cores
  * @constructor
+ * @param {Array} data the data to be distributed amongst the workers
  */
 function mapreduce(data) {
   const cores = navigator.hardwareConcurrency;
