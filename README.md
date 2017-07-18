@@ -28,3 +28,14 @@ This repository let's you parallelize code easily in the browser to prevent expe
   </body>
 </html>
 ```
+### Async Await
+You can also use the async/await to prevent the need for chained promises.
+```javascript
+(async () => {
+var data = new mapreduce([1,2,3,4,5,6,7,8,9,10,11,12,13,]);
+var mapped_data_1 = await data.map(x => x * x);
+var mapped_data_again = await mapped_data_1.map(x => x + 2);
+var result = await mapped_data_again.reduce((x,y) => {x + y});
+console.log(result);
+})();
+```
